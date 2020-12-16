@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KensBlogModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="KensBlogModelStoreContainer">
+    <EntitySet Name="ManagerSet" EntityType="KensBlogModel.Store.ManagerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OPTLogSet" EntityType="KensBlogModel.Store.OPTLogSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FeatureSet" EntityType="KensBlogModel.Store.FeatureSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoleSet" EntityType="KensBlogModel.Store.RoleSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoleManager" EntityType="KensBlogModel.Store.RoleManager" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoleFeature" EntityType="KensBlogModel.Store.RoleFeature" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ManagerManager" Association="KensBlogModel.Store.ManagerManager">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="Manager1" EntitySet="ManagerSet" />
+    </AssociationSet>
+    <AssociationSet Name="ManagerManager1" Association="KensBlogModel.Store.ManagerManager1">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="Manager1" EntitySet="ManagerSet" />
+    </AssociationSet>
+    <AssociationSet Name="ManagerOPTLog" Association="KensBlogModel.Store.ManagerOPTLog">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="OPTLog" EntitySet="OPTLogSet" />
+    </AssociationSet>
+    <AssociationSet Name="FeatureFeature" Association="KensBlogModel.Store.FeatureFeature">
+      <End Role="Feature" EntitySet="FeatureSet" />
+      <End Role="Feature1" EntitySet="FeatureSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleManager_Role" Association="KensBlogModel.Store.FK_RoleManager_Role">
+      <End Role="Role" EntitySet="RoleSet" />
+      <End Role="RoleManager" EntitySet="RoleManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleManager_Manager" Association="KensBlogModel.Store.FK_RoleManager_Manager">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="RoleManager" EntitySet="RoleManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleFeature_Role" Association="KensBlogModel.Store.FK_RoleFeature_Role">
+      <End Role="Role" EntitySet="RoleSet" />
+      <End Role="RoleFeature" EntitySet="RoleFeature" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RoleFeature_Feature" Association="KensBlogModel.Store.FK_RoleFeature_Feature">
+      <End Role="Feature" EntitySet="FeatureSet" />
+      <End Role="RoleFeature" EntitySet="RoleFeature" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ManagerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreateDeteTime" Type="datetime" Nullable="false" />
+    <Property Name="UpdateDeteTime" Type="datetime" Nullable="false" />
+    <Property Name="GAToken" Type="nvarchar" Nullable="false" MaxLength="512" />
+    <Property Name="IsDeltel" Type="tinyint" Nullable="false" />
+    <Property Name="CreateManager_Id" Type="int" Nullable="true" />
+    <Property Name="UpdateManager_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="OPTLogSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateDateTime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mathod" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RequestBody" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Manager_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FeatureSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Seq" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CssClass" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FeatureType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Uri" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ChidrenFeature_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="RoleSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Seq" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Hide" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoleManager">
+    <Key>
+      <PropertyRef Name="Role_Id" />
+      <PropertyRef Name="Manager_Id" />
+    </Key>
+    <Property Name="Role_Id" Type="int" Nullable="false" />
+    <Property Name="Manager_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoleFeature">
+    <Key>
+      <PropertyRef Name="Role_Id" />
+      <PropertyRef Name="Feature_Id" />
+    </Key>
+    <Property Name="Role_Id" Type="int" Nullable="false" />
+    <Property Name="Feature_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ManagerManager">
+    <End Role="Manager" Type="KensBlogModel.Store.ManagerSet" Multiplicity="0..1" />
+    <End Role="Manager1" Type="KensBlogModel.Store.ManagerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Manager1">
+        <PropertyRef Name="CreateManager_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ManagerManager1">
+    <End Role="Manager" Type="KensBlogModel.Store.ManagerSet" Multiplicity="0..1" />
+    <End Role="Manager1" Type="KensBlogModel.Store.ManagerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Manager1">
+        <PropertyRef Name="UpdateManager_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ManagerOPTLog">
+    <End Role="Manager" Type="KensBlogModel.Store.ManagerSet" Multiplicity="1" />
+    <End Role="OPTLog" Type="KensBlogModel.Store.OPTLogSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OPTLog">
+        <PropertyRef Name="Manager_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FeatureFeature">
+    <End Role="Feature" Type="KensBlogModel.Store.FeatureSet" Multiplicity="0..1" />
+    <End Role="Feature1" Type="KensBlogModel.Store.FeatureSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Feature">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Feature1">
+        <PropertyRef Name="ChidrenFeature_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleManager_Role">
+    <End Role="Role" Type="KensBlogModel.Store.RoleSet" Multiplicity="1" />
+    <End Role="RoleManager" Type="KensBlogModel.Store.RoleManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleManager">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleManager_Manager">
+    <End Role="RoleManager" Type="KensBlogModel.Store.RoleManager" Multiplicity="*" />
+    <End Role="Manager" Type="KensBlogModel.Store.ManagerSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleManager">
+        <PropertyRef Name="Manager_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleFeature_Role">
+    <End Role="Role" Type="KensBlogModel.Store.RoleSet" Multiplicity="1" />
+    <End Role="RoleFeature" Type="KensBlogModel.Store.RoleFeature" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleFeature">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RoleFeature_Feature">
+    <End Role="RoleFeature" Type="KensBlogModel.Store.RoleFeature" Multiplicity="*" />
+    <End Role="Feature" Type="KensBlogModel.Store.FeatureSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Feature">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoleFeature">
+        <PropertyRef Name="Feature_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="KensBlogModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="KensBlogModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ManagerSet" EntityType="KensBlogModel.Manager" />
+          <AssociationSet Name="ManagerManager" Association="KensBlogModel.ManagerManager">
+            <End Role="Manager" EntitySet="ManagerSet" />
+            <End Role="Manager1" EntitySet="ManagerSet" />
+          </AssociationSet>
+          <AssociationSet Name="ManagerManager1" Association="KensBlogModel.ManagerManager1">
+            <End Role="Manager" EntitySet="ManagerSet" />
+            <End Role="Manager1" EntitySet="ManagerSet" />
+          </AssociationSet>
+          <EntitySet Name="OPTLogSet" EntityType="KensBlogModel.OPTLog" />
+          <AssociationSet Name="ManagerOPTLog" Association="KensBlogModel.ManagerOPTLog">
+            <End Role="Manager" EntitySet="ManagerSet" />
+            <End Role="OPTLog" EntitySet="OPTLogSet" />
+          </AssociationSet>
+          <EntitySet Name="FeatureSet" EntityType="KensBlogModel.Feature" />
+          <AssociationSet Name="FeatureFeature" Association="KensBlogModel.FeatureFeature">
+            <End Role="Feature" EntitySet="FeatureSet" />
+            <End Role="Feature1" EntitySet="FeatureSet" />
+          </AssociationSet>
+          <EntitySet Name="RoleSet" EntityType="KensBlogModel.Role" />
+          <AssociationSet Name="RoleManager" Association="KensBlogModel.RoleManager">
+            <End Role="Role" EntitySet="RoleSet" />
+            <End Role="Manager" EntitySet="ManagerSet" />
+          </AssociationSet>
+          <AssociationSet Name="RoleFeature" Association="KensBlogModel.RoleFeature">
+            <End Role="Role" EntitySet="RoleSet" />
+            <End Role="Feature" EntitySet="FeatureSet" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" />
+          <Property Name="CreateDeteTime" Type="DateTime" Nullable="false" />
+          <Property Name="UpdateDeteTime" Type="DateTime" Nullable="false" />
+          <Property Name="GAToken" Type="String" Nullable="false" MaxLength="512" />
+          <Property Name="IsDeltel" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="SeedManager" Relationship="KensBlogModel.ManagerManager" FromRole="Manager" ToRole="Manager1" />
+          <NavigationProperty Name="CreateManager" Relationship="KensBlogModel.ManagerManager" FromRole="Manager1" ToRole="Manager" />
+          <NavigationProperty Name="SeedUpdateManager" Relationship="KensBlogModel.ManagerManager1" FromRole="Manager" ToRole="Manager1" />
+          <NavigationProperty Name="UpdateManager" Relationship="KensBlogModel.ManagerManager1" FromRole="Manager1" ToRole="Manager" />
+          <NavigationProperty Name="OPTLog" Relationship="KensBlogModel.ManagerOPTLog" FromRole="Manager" ToRole="OPTLog" />
+          <NavigationProperty Name="Role" Relationship="KensBlogModel.RoleManager" FromRole="Manager" ToRole="Role" />
+        </EntityType>
+        <Association Name="ManagerManager">
+          <End Type="KensBlogModel.Manager" Role="Manager" Multiplicity="0..1" />
+          <End Type="KensBlogModel.Manager" Role="Manager1" Multiplicity="*" />
+        </Association>
+        <Association Name="ManagerManager1">
+          <End Type="KensBlogModel.Manager" Role="Manager" Multiplicity="0..1" />
+          <End Type="KensBlogModel.Manager" Role="Manager1" Multiplicity="*" />
+        </Association>
+        <EntityType Name="OPTLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>呼叫哪一個api如\create</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="CreateDateTime" Type="String" Nullable="false" />
+          <Property Name="Mathod" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>紀錄crud</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="RequestBody" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>Request完整data內容</LongDescription>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="Manager" Relationship="KensBlogModel.ManagerOPTLog" FromRole="OPTLog" ToRole="Manager" />
+        </EntityType>
+        <Association Name="ManagerOPTLog">
+          <End Type="KensBlogModel.Manager" Role="Manager" Multiplicity="1" />
+          <End Type="KensBlogModel.OPTLog" Role="OPTLog" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Feature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" />
+          <Property Name="Seq" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>調整順序用</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="CssClass" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>利用CSS Class更換icon</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="FeatureType" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>判斷該feature是點了即顯示資料或者只是樹的一個節點</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="Uri" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>功能綁定URI可將完整router網址</LongDescription>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="ParentFeature" Relationship="KensBlogModel.FeatureFeature" FromRole="Feature" ToRole="Feature1" />
+          <NavigationProperty Name="ChidrenFeature" Relationship="KensBlogModel.FeatureFeature" FromRole="Feature1" ToRole="Feature" />
+          <NavigationProperty Name="Role" Relationship="KensBlogModel.RoleFeature" FromRole="Feature" ToRole="Role" />
+        </EntityType>
+        <Association Name="FeatureFeature">
+          <End Type="KensBlogModel.Feature" Role="Feature" Multiplicity="0..1" />
+          <End Type="KensBlogModel.Feature" Role="Feature1" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Seq" Type="String" Nullable="false" >
+            <Documentation>
+              <Summary>順序</Summary>
+              <LongDescription>調整排序順序用</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="Status" Type="String" Nullable="false" />
+          <Property Name="Hide" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>可用來判斷是否是admin做出特殊處理, 比如不可編輯刪除</LongDescription>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="Manager" Relationship="KensBlogModel.RoleManager" FromRole="Role" ToRole="Manager" />
+          <NavigationProperty Name="Feature" Relationship="KensBlogModel.RoleFeature" FromRole="Role" ToRole="Feature" />
+        </EntityType>
+        <Association Name="RoleManager">
+          <End Type="KensBlogModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="KensBlogModel.Manager" Role="Manager" Multiplicity="*" />
+        </Association>
+        <Association Name="RoleFeature">
+          <End Type="KensBlogModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="KensBlogModel.Feature" Role="Feature" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KensBlogModelStoreContainer" CdmEntityContainer="KensBlogModelContainer">
+    <EntitySetMapping Name="ManagerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KensBlogModel.Manager)">
+        <MappingFragment StoreEntitySet="ManagerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CreateDeteTime" ColumnName="CreateDeteTime" />
+          <ScalarProperty Name="UpdateDeteTime" ColumnName="UpdateDeteTime" />
+          <ScalarProperty Name="GAToken" ColumnName="GAToken" />
+          <ScalarProperty Name="IsDeltel" ColumnName="IsDeltel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OPTLogSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KensBlogModel.OPTLog)">
+        <MappingFragment StoreEntitySet="OPTLogSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+          <ScalarProperty Name="Mathod" ColumnName="Mathod" />
+          <ScalarProperty Name="RequestBody" ColumnName="RequestBody" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeatureSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KensBlogModel.Feature)">
+        <MappingFragment StoreEntitySet="FeatureSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Seq" ColumnName="Seq" />
+          <ScalarProperty Name="CssClass" ColumnName="CssClass" />
+          <ScalarProperty Name="FeatureType" ColumnName="FeatureType" />
+          <ScalarProperty Name="Uri" ColumnName="Uri" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(KensBlogModel.Role)">
+        <MappingFragment StoreEntitySet="RoleSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Seq" ColumnName="Seq" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Hide" ColumnName="Hide" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ManagerManager" TypeName="KensBlogModel.ManagerManager" StoreEntitySet="ManagerSet">
+      <EndProperty Name="Manager">
+        <ScalarProperty Name="Id" ColumnName="CreateManager_Id" />
+      </EndProperty>
+      <EndProperty Name="Manager1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="CreateManager_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ManagerManager1" TypeName="KensBlogModel.ManagerManager1" StoreEntitySet="ManagerSet">
+      <EndProperty Name="Manager">
+        <ScalarProperty Name="Id" ColumnName="UpdateManager_Id" />
+      </EndProperty>
+      <EndProperty Name="Manager1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="UpdateManager_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ManagerOPTLog" TypeName="KensBlogModel.ManagerOPTLog" StoreEntitySet="OPTLogSet">
+      <EndProperty Name="Manager">
+        <ScalarProperty Name="Id" ColumnName="Manager_Id" />
+      </EndProperty>
+      <EndProperty Name="OPTLog">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FeatureFeature" TypeName="KensBlogModel.FeatureFeature" StoreEntitySet="FeatureSet">
+      <EndProperty Name="Feature">
+        <ScalarProperty Name="Id" ColumnName="ChidrenFeature_Id" />
+      </EndProperty>
+      <EndProperty Name="Feature1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="ChidrenFeature_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoleManager" TypeName="KensBlogModel.RoleManager" StoreEntitySet="RoleManager">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="Id" ColumnName="Role_Id" />
+      </EndProperty>
+      <EndProperty Name="Manager">
+        <ScalarProperty Name="Id" ColumnName="Manager_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoleFeature" TypeName="KensBlogModel.RoleFeature" StoreEntitySet="RoleFeature">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="Id" ColumnName="Role_Id" />
+      </EndProperty>
+      <EndProperty Name="Feature">
+        <ScalarProperty Name="Id" ColumnName="Feature_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
